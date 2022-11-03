@@ -1,11 +1,15 @@
 import socket
-
+import os
+port = 8000
 mysock = socket.socket() 
-mysock.bind(('localhost', 8000))
+mysock.bind(('localhost', port))
 mysock.listen(5)
 
 
 while True:
+    os.system('cls')
+    print('Servidor corriendo en el puerto: ', port)
+    print('URL: http://127.0.0.1:8000/')
     con, addr = mysock.accept() 
     rquest = con.recv(1024).decode('utf-8')
     list = rquest.split(' ')    
@@ -13,7 +17,7 @@ while True:
     method = list[0] # metodo
     requesting_file = list[1] # nombre
 
-    file = open('index.html', 'rb')
+    file = open('views/index.html', 'rb')
     
     response = file.read()
     file.close()
